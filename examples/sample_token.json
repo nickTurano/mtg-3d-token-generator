@@ -1,0 +1,11 @@
+{
+  "id": "sample-goblin",
+  "set": "tdm",
+  "name": "Goblin",
+  "type_line": "Token Creature — Goblin",
+  "power": "1",
+  "toughness": "1",
+  "colors": ["R"],
+  "color_identity": ["R"],
+  "layout": "token"
+}
