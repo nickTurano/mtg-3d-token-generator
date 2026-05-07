@@ -21,6 +21,8 @@ def generate_all(
     width_mm: float = typer.Option(63.5, help="Card/token width in millimeters."),
     height_mm: float = typer.Option(88.9, help="Card/token height in millimeters."),
     thickness_mm: float = typer.Option(2.4, help="Base thickness in millimeters."),
+    generate_icons: bool = typer.Option(True, "--generate-icons/--no-generate-icons", help="Generate placeholder/raw icons and processed printable silhouettes."),
+    regen_icons: bool = typer.Option(False, "--regen-icons", help="Regenerate raw icon files even when cached files already exist."),
 ):
     """Fetch token metadata and generate prompts, SVGs, and MVP STLs."""
 
@@ -30,7 +32,7 @@ def generate_all(
     if limit is not None:
         tokens = tokens[:limit]
     style = TokenStyle(width_mm=width_mm, height_mm=height_mm, thickness_mm=thickness_mm)
-    outputs = generate_from_tokens(tokens, out, style)
+    outputs = generate_from_tokens(tokens, out, style, generate_icons=generate_icons, regen_icons=regen_icons)
     print(f"[green]Generated {len(tokens)} tokens in {out}[/green]")
     for key, value in outputs.items():
         count = len(value) if isinstance(value, list) else 1

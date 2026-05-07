@@ -19,7 +19,8 @@ def render_svg(token: Token, style: TokenStyle, output_dir: Path, icon_path: Pat
         try:
             icon_href = icon_path.relative_to(svg_dir).as_posix()
         except ValueError:
-            icon_href = icon_path.name
+            icon_href = Path("..") / icon_path.relative_to(svg_dir.parent)
+            icon_href = icon_href.as_posix()
     pt_text = f"{token.power}/{token.toughness}" if token.power and token.toughness else ""
     icon_markup = (
         f'<image href="{escape(icon_href)}" x="13.5" y="27" width="36.5" height="36.5" preserveAspectRatio="xMidYMid meet" />'
