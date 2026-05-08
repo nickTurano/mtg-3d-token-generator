@@ -18,7 +18,11 @@ def test_process_icon_outputs_square_black_white_silhouette_with_margin(tmp_path
     assert result == processed
     with Image.open(processed) as out:
         assert out.size == (64, 64)
-        values = set(out.convert("L").getdata())
-        assert values <= {0, 255}
-        assert out.convert("L").getpixel((0, 0)) == 255
-        assert out.convert("L").getbbox() == (0, 0, 64, 64)
+        assert out.mode == "RGBA"
+        alpha_values = set(out.getchannel("A").getdata())
+        assert alpha_values <= {0, 255}
+        assert out.getpixel((0, 0))[3] == 0
+        assert out.getchannel("A").getbbox() is not None
+        opaque_pixels = [pixel for pixel in out.getdata() if pixel[3] == 255]
+        assert opaque_pixels
+        assert all(pixel[:3] == (0, 0, 0) for pixel in opaque_pixels)

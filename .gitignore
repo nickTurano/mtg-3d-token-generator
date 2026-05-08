@@ -7,4 +7,7 @@ dist/
 build/
 *.egg-info/
 output/
+.env
+.env.*
+!.env.example
 .DS_Store

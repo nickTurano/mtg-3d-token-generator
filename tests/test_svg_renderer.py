@@ -23,3 +23,21 @@ def test_render_svg_uses_standard_card_dimensions_and_embeds_icon(tmp_path: Path
     assert "Treasure" in text
     assert "Token Artifact" in text
     assert "icon.png" in text
+
+
+def test_render_svg_adds_color_identity_markers(tmp_path: Path):
+    token = Token(
+        scryfall_id="1",
+        set_code="tdm",
+        name="Goblin",
+        type_line="Token Creature — Goblin",
+        colors=["R"],
+        color_identity=["R"],
+    )
+
+    svg_path = render_svg(token, TokenStyle(), tmp_path)
+    text = svg_path.read_text(encoding="utf-8")
+
+    assert 'aria-label="color identity: R"' in text
+    assert 'fill="#e35b36"' in text
+    assert ">R</text>" in text

@@ -21,11 +21,32 @@ def test_icon_prompt_is_original_printable_and_excludes_mtg_symbols():
     prompt = build_icon_prompt(token)
 
     assert "Goblin" in prompt
-    assert "black icon on pure white background" in prompt
+    assert "black filled silhouette on pure white background" in prompt
     assert "3D printing" in prompt
     assert "no Magic: The Gathering symbols" in prompt
     assert "no mana symbols" in prompt
     assert "no card frame" in prompt
+
+
+def test_bird_prompt_includes_recognizable_anatomy_guidance():
+    token = Token(
+        scryfall_id="1",
+        set_code="ttdm",
+        name="Bird",
+        type_line="Token Creature — Bird",
+        oracle_text="Flying",
+        power="1",
+        toughness="1",
+        colors=["W"],
+        color_identity=["W"],
+    )
+
+    prompt = build_icon_prompt(token)
+
+    assert "pointed beak" in prompt
+    assert "raised wing" in prompt
+    assert "fan tail feathers" in prompt
+    assert "thumbnail size" in prompt
 
 
 def test_icon_paths_are_grouped_by_artifact_type(tmp_path: Path):

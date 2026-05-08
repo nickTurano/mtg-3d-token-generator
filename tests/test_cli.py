@@ -10,3 +10,4 @@ def test_cli_help_exposes_icon_flags():
     assert "--generate-icons" in result.output
     assert "--no-generate-icons" in result.output
     assert "--regen-icons" in result.output
+    assert "--icon-provider" in result.output
