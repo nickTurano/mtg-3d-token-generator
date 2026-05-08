@@ -24,6 +24,7 @@ def generate_all(
     generate_icons: bool = typer.Option(True, "--generate-icons/--no-generate-icons", help="Generate raw icons and processed printable silhouettes."),
     icon_provider: str = typer.Option("placeholder", "--icon-provider", help="Icon provider to use: placeholder or openai."),
     regen_icons: bool = typer.Option(False, "--regen-icons", help="Regenerate raw icon files even when cached files already exist."),
+    generate_previews: bool = typer.Option(True, "--generate-previews/--no-generate-previews", help="Generate PNG preview mockups for each token."),
 ):
     """Fetch token metadata and generate prompts, SVGs, and MVP STLs."""
 
@@ -40,6 +41,7 @@ def generate_all(
         generate_icons=generate_icons,
         regen_icons=regen_icons,
         icon_provider=icon_provider,
+        generate_previews=generate_previews,
     )
     print(f"[green]Generated {len(tokens)} tokens in {out}[/green]")
     for key, value in outputs.items():
